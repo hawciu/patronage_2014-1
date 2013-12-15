@@ -85,14 +85,14 @@ api.add_resource(SuperheroList, '/superheros/')
 
 def superhero_name_exist(name, new_name):
 	new_superhero = filter(lambda s: s['name'] == new_name, db_superheros)
-	if (name != new_name and len(new_superhero)) > 0:
+	if (name != new_name and len(new_superhero) > 0):
 		return True
 	return False  
 	
 # RequestParser custom types 
 def new_superhero_name(value):
 	if len(value) > 20:
-		raise ValueError("Invalid name, the name should be less than 20 characters")
+		raise ValueError("Invalid name, the name should be a maximum of 20 characters.")
 	superhero = filter(lambda s: s['name'] == value, db_superheros)
 	if (len(superhero) > 0):
 		raise ValueError("Invalid name, a superhero with the same name already exists")
@@ -100,19 +100,19 @@ def new_superhero_name(value):
 
 def superhero_real_name(value):
 	if len(value) > 50:
-		raise ValueError("Invalid real_name, the real_name should be less than 50 characters")
+		raise ValueError("Invalid real_name, the real_name should be a maximum of 50 characters.")
 	return value
 
 def superhero_appearance_date(value):
 	try:
 		datetime.strptime(value, '%m-%Y')
 	except ValueError:
-		raise ValueError("Invalid appearance_date Incorrect data format, should be mm-yyyy")
+		raise ValueError("Invalid appearance_date Incorrect data format, should be mm-yyyy.")
 	return value 
 
 def superhero_name(value):
 	if len(value) > 20:
-		raise ValueError("Invalid name, the name should be less than 20 characters")
+		raise ValueError("Invalid name, the name should be a maximum of 20 characters.")
 	return value
 
 if __name__ == '__main__':
